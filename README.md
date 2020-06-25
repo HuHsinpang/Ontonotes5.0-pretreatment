@@ -6,7 +6,7 @@ ontonotes5.0 数据预处理，按照官方给的方式进行训练集、验证�
 
 ## 操作流程
 ### 下载处理程序和数据集
-从 http://cemantix.org/data/ontonotes.html， https://catalog.ldc.upenn.edu/LDC2013T19 下载数据与处理程序，并放在某个文件夹下，如图1。
+从 http://cemantix.org/data/ontonotes.html， https://catalog.ldc.upenn.edu/LDC2013T19 下载数据与处理程序，并放在某个文件夹下，如图1。ontonotes5.0数据下载的时候，需要先在网站上注册，数据获取流程最好先查一查，还挺麻烦的。
 
 解压到当前文件夹，解压后内容如图2，生成了两个文件夹，我把压缩包剪切走了。我是在linux下解压的，在Windows下解压的时候蹦了几个重复，不知道什么原因，建议在linux下解压。
 

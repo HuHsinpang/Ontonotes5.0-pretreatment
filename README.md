@@ -11,12 +11,16 @@ ontonotes5.0 数据预处理，按照官方给的方式进行训练集、验证�
 解压到当前文件夹，解压后内容如图2，生成了两个文件夹，我把压缩包剪切走了。我是在linux下解压的，在Windows下解压的时候蹦了几个重复，不知道什么原因，建议在linux下解压。<center>![图2](./img/深度截图_选择区域_20200618190344.png)</center>
 
 在当前文件夹打开终端，创建py27环境，并执行第一步数据处理
+```
 conda create -n py27 python=2.7
 source activate py27
 ./conll-2012/v3/scripts/skeleton2conll.sh -D ./ontonotes-release-5.0/data/files/data/ ./conll-2012/
+```
 
 切换回python3环境
+```
 source deactivate
+```
 
 把本项目上传的python程序放入解压文件所在文件夹，执行python xxx.py，就会生成一个result文件夹，里面是各个语言的预处理结果。因为比较感兴趣的是ner这块，所以处理的时候标记成了bio，感兴趣的可以在python程序上进行改动，以适应其他方向的处理需求
 

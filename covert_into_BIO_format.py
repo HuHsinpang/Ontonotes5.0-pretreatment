@@ -1,11 +1,14 @@
 import os, glob, itertools
 
 def generate_collection(data_tag, dir_name, lang):
+    folder = './conll-2012/v4/data/'+ data_tag + '/data/'+ lang
+    print(folder)
     results = itertools.chain.from_iterable(glob.iglob(os.path.join(root, '*.v4_gold_conll'))
-                                            for root, dirs, files in os.walk('./conll-2012/v4/data/',data_tag,'data',lang))
+                                            for root, dirs, files in os.walk(folder))
 
     text, word_count, sent_count = "", 0, 0
     for cur_file in results: 
+        print(cur_file)
         with open(cur_file, 'r') as f:
             print(cur_file)
             flag = None

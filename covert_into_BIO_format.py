@@ -103,7 +103,7 @@ def nertag_bio2bioes(dir_name):
 def main():
     for language in ('english', 'chinese', 'arabic'):
 
-        # # 针对某种语言
+        # 针对某种语言
         dir_name = os.path.join('./result/', language)
         if not os.path.exists(dir_name):
             os.makedirs(dir_name)

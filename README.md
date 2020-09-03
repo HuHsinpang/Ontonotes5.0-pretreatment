@@ -23,5 +23,5 @@ source activate py27
 source deactivate
 ```
 
-3. 把本项目上传的python程序放入解压文件所在文件夹，执行python xxx.py，就会生成一个result文件夹，里面是各个语言的预处理结果。因为比较感兴趣的是ner这块，所以处理的时候标记成了bmes标注，感兴趣的可以在python程序上进行改动，以适应其他方向的处理需求
+3. 把本项目上传的python程序放入解压文件所在文件夹，执行python xxx.py，就会生成一个result文件夹，里面是各个语言的预处理结果。因为比较感兴趣的是ner这块，所以处理的时候标记成了bmeso标注，感兴趣的可以在python程序上进行改动，以适应其他方向的处理需求
 

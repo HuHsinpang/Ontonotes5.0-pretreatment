@@ -8,7 +8,7 @@ def generate_collection(data_tag, dir_name, lang):
 
     text, word_count, sent_count = "", 0, 0
     for cur_file in results: 
-        with open(cur_file, 'r') as f:
+        with open(cur_file, 'r', encoding='utf-8') as f:
             flag = None
             for line in f.readlines():
                 l = ' '.join(line.strip().split())
@@ -51,7 +51,7 @@ def generate_collection(data_tag, dir_name, lang):
         f.write(text)
 
     filepath = os.path.join(dir_name, data_tag+'.info.txt')
-    with open(filepath, 'w') as f:
+    with open(filepath, 'w', encoding='utf-8') as f:
         f.write("For file:{}, there are {} sentences, {} tokens.".format(filepath, sent_count, word_count))
 
 
@@ -64,10 +64,11 @@ def nertag_bio2bioes(dir_name):
                     fout.write('\n')
                     continue
 
+                # witout addition feature
                 word, pos, label = lines[idx].split()[0], lines[idx].split()[1], lines[idx].split()[-1]
                 if "-" not in label:        # O
                     for idx in range(len(word)):
-                        fout.write(word[idx]+' pos:'+pos+' seg:'+str(idx)+' O\n')
+                        fout.write(word[idx]+' O\n')
                 else:
                     label_type=label.split('-')[-1]
                     if 'B-' in label:       # B
@@ -75,26 +76,59 @@ def nertag_bio2bioes(dir_name):
                             idx==len(lines)-1                         or \
                             (idx<len(lines)-1 and 'I' not in lines[idx+1].split()[-1]): # 位于句尾/文件尾、或下个标记不为I
                             if len(word)==1:    # S
-                                fout.write(word+' pos:'+pos+' seg:0'+' S-'+label_type+'\n')
+                                fout.write(word+' S-'+label_type+'\n')
                             else:               # 对于BIE在同一个word
-                                fout.write(word[0]+' pos:'+pos+' seg:0'+' B-'+label_type+'\n')
+                                fout.write(word[0]+' B-'+label_type+'\n')
                                 for char_idx in range(1, len(word)-1):
-                                    fout.write(word[char_idx]+' pos:'+pos+' seg:'+str(char_idx)+' M-'+label_type+'\n')
-                                fout.write(word[-1]+' pos:'+pos+' seg:'+str(len(word)-1)+' E-'+label_type+'\n')
+                                    fout.write(word[char_idx]+' M-'+label_type+'\n')
+                                fout.write(word[-1]+' E-'+label_type+'\n')
                         else:
-                            fout.write(word[0]+' pos:'+pos+' seg:0'+' B-'+label_type+'\n')
+                            fout.write(word[0]+' B-'+label_type+'\n')
                             for char_idx in range(1, len(word)):
-                                fout.write(word[char_idx]+' pos:'+pos+' seg:'+str(char_idx)+' M-'+label_type+'\n')
+                                fout.write(word[char_idx]+' M-'+label_type+'\n')
                     elif 'I-' in label:     # I
                         if (idx<len(lines)-1 and len(lines[idx+1])<3) or \
                             idx==len(lines)-1                         or \
                             (idx<len(lines)-1 and 'I' not in lines[idx+1].split()[-1]): # 位于句尾/文件尾、或下个标记不为I
                             for char_idx in range(0, len(word)-1):
-                                fout.write(word[char_idx]+' pos:'+pos+' seg:'+str(char_idx)+' M-'+label_type+'\n')
-                            fout.write(word[-1]+' pos:'+pos+' seg:'+str(len(word)-1)+' E-'+label_type+'\n')
+                                fout.write(word[char_idx]+' M-'+label_type+'\n')
+                            fout.write(word[-1]+' E-'+label_type+'\n')
                         else:
                             for idx in range(len(word)):
-                                fout.write(word[idx]+' pos:'+pos+' seg:'+str(idx)+' M-'+label_type+'\n')
+                                fout.write(word[idx]+' M-'+label_type+'\n')
+
+                ## 这个地方的功能是用来保留其他的信息，比如说分词和词性标注
+                # word, pos, label = lines[idx].split()[0], lines[idx].split()[1], lines[idx].split()[-1]
+                # if "-" not in label:        # O
+                #     for idx in range(len(word)):
+                #         fout.write(word[idx]idx)+' O\n')
+                # else:
+                #     label_type=label.split('-')[-1]
+                #     if 'B-' in label:       # B
+                #         if (idx<len(lines)-1 and len(lines[idx+1])<3) or \
+                #             idx==len(lines)-1                         or \
+                #             (idx<len(lines)-1 and 'I' not in lines[idx+1].split()[-1]): # 位于句尾/文件尾、或下个标记不为I
+                #             if len(word)==1:    # S
+                #                 fout.write(word+' S-'+label_type+'\n')
+                #             else:               # 对于BIE在同一个word
+                #                 fout.write(word[0]+' B-'+label_type+'\n')
+                #                 for char_idx in range(1, len(word)-1):
+                #                     fout.write(word[char_idx]+' M-'+label_type+'\n')
+                #                 fout.write(word[-1]len(word)-1)+' E-'+label_type+'\n')
+                #         else:
+                #             fout.write(word[0]+' B-'+label_type+'\n')
+                #             for char_idx in range(1, len(word)):
+                #                 fout.write(word[char_idx]+' M-'+label_type+'\n')
+                #     elif 'I-' in label:     # I
+                #         if (idx<len(lines)-1 and len(lines[idx+1])<3) or \
+                #             idx==len(lines)-1                         or \
+                #             (idx<len(lines)-1 and 'I' not in lines[idx+1].split()[-1]): # 位于句尾/文件尾、或下个标记不为I
+                #             for char_idx in range(0, len(word)-1):
+                #                 fout.write(word[char_idx]+' M-'+label_type+'\n')
+                #             fout.write(word[-1]len(word)-1)+' E-'+label_type+'\n')
+                #         else:
+                #             for idx in range(len(word)):
+                #                 fout.write(word[idx]idx)+' M-'+label_type+'\n')
 
 
 def main():

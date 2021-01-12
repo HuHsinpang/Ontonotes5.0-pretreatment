@@ -2,7 +2,7 @@
 ontonotes5.0 数据预处理，按照官方给的方式进行训练集、验证集、测试集的分割。Ontonotes5.0 pretreatment
 
 ## 创建原因
-最近要做ner实验，但是github上给的教程都不够详细或者有错误，比如说[yhcc同学](https://github.com/yhcc/OntoNotes-5.0-NER)给的教程生成的数据没有测试集，其他几个也有或多或少的错误。经过查资料和学习别人的代码，找到了正确处理ontonote5数据的方式，并在[yhcc同学](https://github.com/yhcc/OntoNotes-5.0-NER)等项目的基础上做了一个简单的conll格式文件到项目可用格式的程序，在这里分享一下。
+最近要做ner实验，但是github上给的教程都不够详细或者有错误，比如说[yhcc同学](https://github.com/yhcc/OntoNotes-5.0-NER)给的教程生成的数据没有测试集，其他几个也有或多或少的错误。经过查资料和学习别人的代码，找到了正确处理ontonote5数据的方式，并在[yhcc同学](https://github.com/yhcc/OntoNotes-5.0-NER)等项目的基础上做了一个简单的conll格式文件到项目可用格式的程序，在这里分享一下。另外欢迎看看我项目里预处理的[bosonNER](https://github.com/HuHsinpang/BosonNER-Pretreatment)、[weiboNER](https://github.com/HuHsinpang/weiboNER-pretreatment)的数据集啊。
 
 ## 操作流程
 ### 下载处理程序和数据集
